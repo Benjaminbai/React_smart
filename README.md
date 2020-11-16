@@ -1,2 +1,2 @@
 # React_smart
-realize react frame
+realizing react frame of short version
