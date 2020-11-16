@@ -1,0 +1,35 @@
+{
+  "name": "react_smart",
+  "version": "1.0.0",
+  "description": "react frame of short version",
+  "main": "index.js",
+  "scripts": {
+    "start": "parcel index.html",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Benjaminbai/React_smart.git"
+  },
+  "keywords": [
+    "react",
+    "core",
+    "function"
+  ],
+  "author": "Benjamin",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Benjaminbai/React_smart/issues"
+  },
+  "homepage": "https://github.com/Benjaminbai/React_smart#readme",
+  "devDependencies": {
+    "babel-core": "^6.26.3",
+    "babel-plugin-transform-react-jsx": "^6.24.1",
+    "babel-preset-env": "^1.7.0",
+    "parcel-bundler": "^1.12.4"
+  },
+  "dependencies": {
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1"
+  }
+}
