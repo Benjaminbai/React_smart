@@ -1,10 +1,15 @@
 import Component from '../react/component'
+import { diff } from './diff'
+//实现reaactdom的render
 const ReactDom = {
     render
 }
 
-function render(vnode, container) {
-    return container.appendChild(_render(vnode))
+// 接受两个参数，一个虚拟dom，一个容器元素
+function render(vnode, container, dom) {
+    // 返回生成的元素
+    // return container.appendChild(_render(vnode))
+    return diff(dom, vnode, container)
 }
 
 export function renderComponent(comp) {
@@ -50,22 +55,29 @@ function setComponentProps(comp, props) {
 }
 
 function _render(vnode) {
+    // 判断传入的内容---是空
     if (vnode === undefined || vnode === null || typeof vnode === "boolean") vnode = ""
+    // 是数字类型转换为字符类型
     if (typeof vnode === "number") vnode = String(vnode)
     if (typeof vnode === "string") {
+        //直接返回文本
         return document.createTextNode(vnode)
     }
-
+    // 如果是组建
     if (typeof vnode.tag === "function") {
+        // 创建组建
         const comp = createComponent(vnode.tag, vnode.attrs)
+        // 设置属性
         setComponentProps(comp, vnode.attrs)
+        // 挂载到组建
         return comp.base
 
     }
-
+    // 取到虚拟dom的标签和属性
     const { tag, attrs } = vnode
     const dom = document.createElement(tag)
 
+    // 如果有属性
     if (attrs) {
         Object.keys(attrs).forEach(key => {
             const value = attrs[key]
@@ -78,7 +90,7 @@ function _render(vnode) {
     return dom
 }
 
-function setAttribute(dom, key, value) {
+export function setAttribute(dom, key, value) {
     if (key === "className") {
         key = "class"
     }
