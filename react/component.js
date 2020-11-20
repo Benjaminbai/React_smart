@@ -1,4 +1,4 @@
-
+import {enqueueSetState} from './ser_state_queue'
 import { renderComponent } from '../react-dom'
 class Component {
     constructor(props = {}) {
@@ -6,8 +6,10 @@ class Component {
         this.state = {}
     }
     setState(stateChange) {
-        Object.assign(this.state, stateChange)
-        renderComponent(this)
+        // Object.assign(this.state, stateChange)
+        // renderComponent(this)
+
+        enqueueSetState(stateChange, this)
     }
 }
 

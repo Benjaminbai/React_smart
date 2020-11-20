@@ -1,5 +1,5 @@
 import Component from '../react/component'
-import { diff } from './diff'
+import { diff, diffNode } from './diff'
 //实现reaactdom的render
 const ReactDom = {
     render
@@ -15,7 +15,8 @@ function render(vnode, container, dom) {
 export function renderComponent(comp) {
     let base
     const renderer = comp.render()
-    base = _render(renderer)
+    // base = _render(renderer)
+    base = diffNode(comp.base, renderer)
     if (comp.base && comp.componentWillUpdate) {
         comp.componentWillUpdate()
     }
@@ -24,13 +25,13 @@ export function renderComponent(comp) {
     } else if (comp.componentDidMount) {
         comp.componentDidMount()
     }
-    if (comp.base && comp.base.parentNode) {
-        comp.base.parentNode.replaceChild(base, comp.base)
-    }
+    // if (comp.base && comp.base.parentNode) {
+    //     comp.base.parentNode.replaceChild(base, comp.base)
+    // }
     comp.base = base
 }
 
-function createComponent(comp, props) {
+export function createComponent(comp, props) {
     let inst
     if (comp.prototype && comp.prototype.render) {
         inst = new comp(props)
@@ -44,7 +45,7 @@ function createComponent(comp, props) {
     return inst
 }
 
-function setComponentProps(comp, props) {
+export function setComponentProps(comp, props) {
     if (!comp.base) {
         if (comp.componentWillMount) comp.componentWillMount()
     } else if (comp.componentWillReceiveProps) {
