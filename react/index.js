@@ -7,6 +7,7 @@ function createElement(tag, attrs, ...childrens) {
         tag,
         attrs,
         childrens,
+        // 用来标记diff算法中的key
         key: attrs.key || null
     }
 }
