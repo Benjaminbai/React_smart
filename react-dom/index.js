@@ -17,12 +17,16 @@ export function renderComponent(comp) {
     const renderer = comp.render()
     // base = _render(renderer)
     base = diffNode(comp.base, renderer)
+
+    //生命周期 componentWillUpdate
     if (comp.base && comp.componentWillUpdate) {
         comp.componentWillUpdate()
     }
     if (comp.base) {
+        // 生命周期 componentDidUpdate
         if (comp.componentDidUpdate) comp.componentDidUpdate()
     } else if (comp.componentDidMount) {
+        // 生命周期 componentDidMount
         comp.componentDidMount()
     }
     // if (comp.base && comp.base.parentNode) {
@@ -31,11 +35,14 @@ export function renderComponent(comp) {
     comp.base = base
 }
 
+// 
 export function createComponent(comp, props) {
     let inst
+    // 如果是class组件，直接new
     if (comp.prototype && comp.prototype.render) {
         inst = new comp(props)
     } else {
+        // 函数组件，就转成class
         inst = new Component(props)
         inst.constructor = comp
         inst.render = function () {
@@ -47,8 +54,10 @@ export function createComponent(comp, props) {
 
 export function setComponentProps(comp, props) {
     if (!comp.base) {
+        // 生命周期componentWillMount
         if (comp.componentWillMount) comp.componentWillMount()
     } else if (comp.componentWillReceiveProps) {
+        // 生命周期 componentWillReceiveProps
         comp.componentWillReceiveProps()
     }
     comp.props = props
@@ -92,14 +101,17 @@ function _render(vnode) {
 }
 
 export function setAttribute(dom, key, value) {
+    // 如果是classname 转成class
     if (key === "className") {
         key = "class"
     }
 
+    // 如果有inclick/onchange等
     if (/on\w/.test(key)) {
         key = key.toLowerCase()
         dom[key] = value || ""
     } else if (key === "style") {
+        // 如果是style
         if (!value || typeof value === "string") {
             dom.style.cssText = value || ""
         } else if (value && typeof value === "object") {
