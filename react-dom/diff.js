@@ -50,6 +50,7 @@ export function diffNode(dom, vnode) {
     }
     // 如果真实dom不存在
     if (!dom) {
+        
         // 创建虚拟dom的标签
         out = document.createElement(vnode.tag)
     }

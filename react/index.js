@@ -1,4 +1,4 @@
-import Component from './component'
+import Component from './Component'
 
 // 实现react的createelement
 function createElement(tag, attrs, ...childrens) {
