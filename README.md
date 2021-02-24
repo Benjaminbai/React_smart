@@ -26,3 +26,5 @@ realizing react frame of short version
     - 如果不是就直接合并
     - 取renderqueue最后一个component，调用react-dom里到rendercomponent方法更新
 
+[diff study resource](https://www.jianshu.com/p/3ba0822018cf)
+
